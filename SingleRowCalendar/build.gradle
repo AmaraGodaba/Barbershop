@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+plugin{
+    id "org.jetbrains.kotlin.android" version "1.5.31"
+    id 'com.novoda.bintray-release'
+}
+ext {
+    kotlin_version = '1.5.10'
+}
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+publish {
+    repoName = "android-libraries"
+    userOrg = 'michalsvec'
+    groupId = 'com.michalsvec'
+    artifactId = 'single-row-calednar'
+    publishVersion = '1.0.0'
+    desc = 'Android library for horizontal single row calendar. With this library, you aren\'t attached to library built-in UI. You can create really beautiful and customizable UI and use selection features without hands getting dirty with RecyclerView and SelectionTracker.'
+    website = 'https://github.com/miso01/SingleRowCalendar'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //own
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
+}
